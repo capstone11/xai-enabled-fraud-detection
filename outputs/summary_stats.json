@@ -1,0 +1,11 @@
+{
+  "total_features": 13,
+  "features_increasing_risk": "5",
+  "features_decreasing_risk": "8",
+  "total_positive_impact": 0.010328718588127683,
+  "total_negative_impact": -0.049353400116790125,
+  "net_impact": -0.03902468152866244,
+  "most_important_feature": "AnomalyScore",
+  "strongest_risk_factor": "CustomerOccupation",
+  "strongest_safety_factor": "AnomalyScore"
+}

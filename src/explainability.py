@@ -73,7 +73,9 @@ def shap_explanation_classifier(df, model=None):
 
     # Generate human-readable explanations
     explanations = []
+    shap_values = []
     for feature, shap_value in zip(df.columns, shap_to_plot[0]):
+        shap_values.append(shap_value)
         if shap_value > 0:
             explanations.append(f"{feature} increased the likelihood of fraud.")
         else:
@@ -82,7 +84,11 @@ def shap_explanation_classifier(df, model=None):
     # Return the explanations as a DataFrame
     explanation_df = pd.DataFrame({
         "Feature": df.columns,
-        "Explanation": explanations
+        "Explanation": explanations,
+        "SHAP Value": shap_values
     })
+    # Sort by absolute SHAP Value descending
+    explanation_df = explanation_df.reindex(explanation_df["SHAP Value"].abs().sort_values(ascending=False).index)
+    explanation_df = explanation_df.reset_index(drop=True)
     return explanation_df
 

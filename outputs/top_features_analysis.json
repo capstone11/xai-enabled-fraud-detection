@@ -1,0 +1,215 @@
+{
+  "top_risk_factors": [
+    {
+      "Feature": "CustomerOccupation",
+      "Mean_Abs_SHAP": 0.005401437132051887,
+      "Mean_SHAP": 0.005401437132051887,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 540143.7132051887,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 3
+    },
+    {
+      "Feature": "AccountBalance",
+      "Mean_Abs_SHAP": 0.0033295827715382796,
+      "Mean_SHAP": 0.0033295827715382796,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 332958.27715382795,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 5
+    },
+    {
+      "Feature": "TransactionDuration",
+      "Mean_Abs_SHAP": 0.001358954012262755,
+      "Mean_SHAP": 0.001358954012262755,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 135895.40122627548,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 6
+    },
+    {
+      "Feature": "MerchantID",
+      "Mean_Abs_SHAP": 0.0002009619289818406,
+      "Mean_SHAP": 0.0002009619289818406,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 20096.19289818406,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 10
+    },
+    {
+      "Feature": "CustomerAge",
+      "Mean_Abs_SHAP": 3.778274329292093e-05,
+      "Mean_SHAP": 3.778274329292093e-05,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 3778.274329292093,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 13
+    }
+  ],
+  "top_safety_factors": [
+    {
+      "Feature": "AnomalyScore",
+      "Mean_Abs_SHAP": 0.03223191717870362,
+      "Mean_SHAP": -0.03223191717870362,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 3223191.717870362,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 1
+    },
+    {
+      "Feature": "LoginAttempts",
+      "Mean_Abs_SHAP": 0.00896454482592002,
+      "Mean_SHAP": -0.00896454482592002,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 896454.4825920019,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 2
+    },
+    {
+      "Feature": "TransactionType",
+      "Mean_Abs_SHAP": 0.005176421586286654,
+      "Mean_SHAP": -0.005176421586286654,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 517642.15862866543,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 4
+    },
+    {
+      "Feature": "DeviceID",
+      "Mean_Abs_SHAP": 0.001115810446116114,
+      "Mean_SHAP": -0.001115810446116114,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 111581.04461161139,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 7
+    },
+    {
+      "Feature": "IP Address",
+      "Mean_Abs_SHAP": 0.0009343753040986711,
+      "Mean_SHAP": -0.0009343753040986711,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 93437.53040986712,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 8
+    },
+    {
+      "Feature": "TransactionAmount",
+      "Mean_Abs_SHAP": 0.0007655613992180169,
+      "Mean_SHAP": -0.0007655613992180169,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 76556.13992180169,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 9
+    },
+    {
+      "Feature": "Channel",
+      "Mean_Abs_SHAP": 0.00012675155276637736,
+      "Mean_SHAP": -0.00012675155276637736,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 12675.155276637735,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 11
+    },
+    {
+      "Feature": "Location",
+      "Mean_Abs_SHAP": 3.801782368065149e-05,
+      "Mean_SHAP": -3.801782368065149e-05,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 3801.7823680651486,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 12
+    }
+  ],
+  "most_important_overall": [
+    {
+      "Feature": "AnomalyScore",
+      "Mean_Abs_SHAP": 0.03223191717870362,
+      "Mean_SHAP": -0.03223191717870362,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 3223191.717870362,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 1
+    },
+    {
+      "Feature": "LoginAttempts",
+      "Mean_Abs_SHAP": 0.00896454482592002,
+      "Mean_SHAP": -0.00896454482592002,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 896454.4825920019,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 2
+    },
+    {
+      "Feature": "CustomerOccupation",
+      "Mean_Abs_SHAP": 0.005401437132051887,
+      "Mean_SHAP": 0.005401437132051887,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 540143.7132051887,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 3
+    },
+    {
+      "Feature": "TransactionType",
+      "Mean_Abs_SHAP": 0.005176421586286654,
+      "Mean_SHAP": -0.005176421586286654,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 517642.15862866543,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 4
+    },
+    {
+      "Feature": "AccountBalance",
+      "Mean_Abs_SHAP": 0.0033295827715382796,
+      "Mean_SHAP": 0.0033295827715382796,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 332958.27715382795,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 5
+    },
+    {
+      "Feature": "TransactionDuration",
+      "Mean_Abs_SHAP": 0.001358954012262755,
+      "Mean_SHAP": 0.001358954012262755,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 135895.40122627548,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 6
+    },
+    {
+      "Feature": "DeviceID",
+      "Mean_Abs_SHAP": 0.001115810446116114,
+      "Mean_SHAP": -0.001115810446116114,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 111581.04461161139,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 7
+    },
+    {
+      "Feature": "IP Address",
+      "Mean_Abs_SHAP": 0.0009343753040986711,
+      "Mean_SHAP": -0.0009343753040986711,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 93437.53040986712,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 8
+    },
+    {
+      "Feature": "TransactionAmount",
+      "Mean_Abs_SHAP": 0.0007655613992180169,
+      "Mean_SHAP": -0.0007655613992180169,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 76556.13992180169,
+      "Direction": "Decreases Fraud Risk",
+      "Rank": 9
+    },
+    {
+      "Feature": "MerchantID",
+      "Mean_Abs_SHAP": 0.0002009619289818406,
+      "Mean_SHAP": 0.0002009619289818406,
+      "Std_SHAP": 0.0,
+      "Impact_Score": 20096.19289818406,
+      "Direction": "Increases Fraud Risk",
+      "Rank": 10
+    }
+  ]
+}
