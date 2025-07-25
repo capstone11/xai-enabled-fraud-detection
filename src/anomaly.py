@@ -39,6 +39,7 @@ def run_anomaly_detection(df):
     # Remove the AnomalyFlag column from the augmented dataset
     df = df.drop(columns=['AnomalyFlag'], errors='ignore')
 
+    df = df.drop(columns=['AnomalyScore'])
     # Export augmented dataset for classifier training
     augmented_dataset_path = 'outputs/augmented_dataset.csv'
     df.to_csv(augmented_dataset_path, index=False)

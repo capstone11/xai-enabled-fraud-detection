@@ -102,17 +102,16 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Replace pickle with joblib for loading the model
+# Load only the fraud classifier model
 @st.cache_resource
 def load_models():
     model_path = "models/fraud_classifier.pkl"
-    isolation_path = "models/isolation_forest.pkl"
-    return load(model_path), load(isolation_path)
+    return load(model_path)
 
 try:
-    model, isolation_model = load_models()
+    model = load_models()
 except:
-    st.error("❌ Could not load models. Please ensure model files exist.")
+    st.error("❌ Could not load model. Please ensure model file exists.")
     st.stop()
 
 st.set_page_config(
@@ -135,7 +134,7 @@ with st.sidebar:
     st.markdown("## 🔍 How It Works")
     st.markdown("""
     1. **Data Analysis**: AI analyzes transaction patterns
-    2. **Risk Assessment**: Multiple algorithms evaluate fraud probability
+    2. **Risk Assessment**: Machine learning algorithms evaluate fraud probability
     3. **Explanation**: SHAP values explain the decision
     4. **Real-time**: Instant results with detailed reasoning
     """)
@@ -225,7 +224,7 @@ if submitted:
         try:
             # Step 1: Data preparation
             status_text.text('📊 Preparing transaction data...')
-            progress_bar.progress(20)
+            progress_bar.progress(25)
             time.sleep(0.5)
             
             input_data = pd.DataFrame([{
@@ -247,26 +246,19 @@ if submitted:
 
             # Step 2: Preprocessing
             status_text.text('🔄 Processing with AI algorithms...')
-            progress_bar.progress(40)
+            progress_bar.progress(50)
             
             processed = preprocess_dashboard_data(input_data)
             processed = processed.drop(columns=['TimeDifference'], errors='ignore')
-            processed_for_anomaly = processed.drop(columns=['TransactionID', 'AccountID', 'TransactionDate', 'PreviousTransactionDate'], errors='ignore')
-            
-            # Step 3: Anomaly detection
-            status_text.text('🔍 Detecting anomalies...')
-            progress_bar.progress(60)
-            
-            processed['AnomalyScore'] = isolation_model.decision_function(processed_for_anomaly)
             processed_for_classifier = processed.drop(columns=['TransactionDate', 'PreviousTransactionDate'], errors='ignore')
             
-            # Step 4: Fraud prediction
+            # Step 3: Fraud prediction
             status_text.text('🧠 Making fraud prediction...')
-            progress_bar.progress(80)
+            progress_bar.progress(75)
             
             prob, pred = predict_fraud(model, processed_for_classifier)
             
-            # Step 5: Generate explanations
+            # Step 4: Generate explanations
             status_text.text('📝 Generating explanations...')
             progress_bar.progress(100)
             
@@ -315,24 +307,11 @@ if submitted:
             # Detailed metrics
             st.markdown("### 📈 Detailed Analysis")
             
-            col_metrics1, col_metrics2, col_metrics3, col_metrics4 = st.columns(4)
+            col_metrics1, col_metrics2, col_metrics3 = st.columns(3)
             
             with col_metrics1:
                 st.metric("🎯 Fraud Probability", f"{prob:.1%}", 
                          delta=f"+{prob-0.1:.1%}" if prob > 0.1 else f"{prob-0.1:.1%}")
-                
-            with col_metrics2:
-                anomaly_score = processed['AnomalyScore'].iloc[0]
-                st.metric("🔍 Anomaly Score", f"{anomaly_score:.3f}",
-                         delta="High" if anomaly_score < -0.1 else "Normal")
-                
-            with col_metrics3:
-                risk_factors = len(explanation_df[explanation_df['SHAP Value'] > 0])
-                st.metric("⚠️ Risk Factors", risk_factors)
-                
-            with col_metrics4:
-                confidence = (1 - abs(prob - 0.5) * 2) * 100
-                st.metric("🎯 Confidence", f"{confidence:.0f}%")
 
             # Interactive visualization
             st.markdown("### 📊 Feature Impact Visualization")
@@ -392,22 +371,40 @@ if submitted:
                 
                 return f"{base_explanation} {impact} fraud risk"
             
-            # Top risk factors
-            top_factors = explanation_df.head(5)
+            # Separate factors that increase and decrease fraud risk
+            fraud_increasing_factors = explanation_df[explanation_df['SHAP Value'] > 0].head(2)
+            fraud_decreasing_factors = explanation_df[explanation_df['SHAP Value'] < 0].head(2)
             
-            for idx, row in top_factors.iterrows():
-                explanation = generate_explanation(row)
-                impact_color = "#e74c3c" if row['SHAP Value'] > 0 else "#27ae60"
-                
-                st.markdown(f'''
-                <div class="explanation-card">
-                    <h4 style="color: {impact_color};">
-                        {'🔴' if row['SHAP Value'] > 0 else '🟢'} {row['Feature']}
-                    </h4>
-                    <p style="color: {"#000000"};"><strong>Impact:</strong> {explanation}</p>
-                    <p style="color: {"#000000"};"><strong>SHAP Value:</strong> {row['SHAP Value']:.4f}</p>
-                </div>
-                ''', unsafe_allow_html=True)
+            # Display fraud-increasing factors
+            if not fraud_increasing_factors.empty:
+                st.markdown("#### 🔴 Factors Increasing Fraud Risk")
+                for idx, row in fraud_increasing_factors.iterrows():
+                    explanation = generate_explanation(row)
+                    st.markdown(f'''
+                    <div class="explanation-card">
+                        <h4 style="color: #e74c3c;">
+                            🔴 {row['Feature']}
+                        </h4>
+                        <p style="color: #000000;"><strong>Impact:</strong> {explanation}</p>
+                        <p style="color: #000000;"><strong>SHAP Value:</strong> {row['SHAP Value']:.4f}</p>
+                    </div>
+                    ''', unsafe_allow_html=True)
+            
+            # Display fraud-decreasing factors
+            if not fraud_decreasing_factors.empty:
+                st.markdown("#### 🟢 Factors Decreasing Fraud Risk")
+                for idx, row in fraud_decreasing_factors.iterrows():
+                    explanation = generate_explanation(row)
+                    st.markdown(f'''
+                    <div class="explanation-card">
+                        <h4 style="color: #27ae60;">
+                            🟢 {row['Feature']}
+                        </h4>
+                        <p style="color: #000000;"><strong>Impact:</strong> {explanation}</p>
+                        <p style="color: #000000;"><strong>SHAP Value:</strong> {row['SHAP Value']:.4f}</p>
+                    </div>
+                    ''', unsafe_allow_html=True)
+            
             
             # Summary explanation
             st.markdown("### 📋 Summary")
@@ -418,7 +415,6 @@ if submitted:
                 
                 **Key Risk Factors:**
                 - {len(explanation_df[explanation_df['SHAP Value'] > 0])} features indicate increased fraud risk
-                - Anomaly score of {anomaly_score:.3f} suggests unusual patterns
                 
                 **Recommendation**: 🛑 **BLOCK** this transaction and contact the customer for verification.
                 """
